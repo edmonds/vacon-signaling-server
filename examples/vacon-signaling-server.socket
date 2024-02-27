@@ -1,0 +1,8 @@
+[Unit]
+Description=Vacon signaling server socket
+
+[Socket]
+ListenStream=/run/vacon-signaling-server.websocket
+
+[Install]
+WantedBy=sockets.target

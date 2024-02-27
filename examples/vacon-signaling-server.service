@@ -1,0 +1,45 @@
+[Unit]
+Description=Vacon signaling server
+Requires=vacon-signaling-server.socket
+
+[Service]
+Type=exec
+User=_vacon
+Group=_vacon
+DynamicUser=yes
+ExecStart=/usr/local/bin/vacon-signaling-server -vvvv --exit-on-idle --listen-address sd-listen-unix
+
+ExecPaths=/usr/local/bin/vacon-signaling-server /usr/lib /lib
+NoExecPaths=/
+
+MemoryMax=16M
+
+CapabilityBoundingSet=
+IPAddressDeny=any
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+PrivateDevices=yes
+PrivateMounts=yes
+PrivateNetwork=yes
+PrivateTmp=yes
+PrivateUsers=yes
+ProcSubset=pid
+ProtectClock=yes
+ProtectControlGroups=yes
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectProc=invisible
+ProtectSystem=strict
+RestrictAddressFamilies=AF_UNIX
+RestrictNamespaces=yes
+RestrictRealtime=yes
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~ @privileged @resources
+UMask=0777
+
+[Install]
+WantedBy=multi-user.target
