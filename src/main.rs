@@ -321,7 +321,7 @@ async fn handle_connection(
 
         if msg.is_text() || msg.is_binary() {
             trace!(
-                "Received message (length {}) from client {client_id:?}: {msg:?}",
+                "Received message from client {client_id:?}, length {} bytes",
                 msg.len()
             );
 
@@ -343,9 +343,9 @@ async fn handle_connection(
                     // Send the message to the other client(s).
                     for recp in recipients {
                         trace!(
-                            "Sending message (length {}) to client {:?}",
+                            "Sending message to client {:?}, length {} bytes",
+                            recp.id,
                             msg.len(),
-                            recp.id
                         );
                         if let Err(e) = recp.tx.try_send(msg.clone()) {
                             // Don't block on the MPSC channel send, ignore errors.
